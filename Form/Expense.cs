@@ -25,9 +25,7 @@ namespace BD.Standard.MM.ListServicePlugIncs2
             // 给某个辅助资料字段的查询附加过滤条件
             //FTOCONTACTUNIT
             if (e.FieldKey.EqualsIgnoreCase("FCONTACTUNIT") && e.FormId.Equals("BD_Supplier"))
-
             {
-
                 DynamicObject dept = (DynamicObject)this.View.Model.GetValue("FRequestDeptID");
                 if (dept != null)
                 {
@@ -41,12 +39,24 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
 
                     return;
-
-
                 }
+            }
+            if (e.FieldKey.EqualsIgnoreCase("FTOCONTACTUNIT") && e.FormId.Equals("FIN_OTHERS"))
+            {
 
-                
+                DynamicObject dept = (DynamicObject)this.View.Model.GetValue("FDeptID");
+                if (dept != null)
+                {
+                    string deptname = dept["Name"].ToString();
 
+                    //明迈而开配置表
+                    DynamicObjectCollection dys = DBUtils.ExecuteDynamicObject(this.Context, $"select F_WMQB_GROUP_5RN from   WMQB_t_GroupConfig1  where F_WMQB_DEPTMENT2='ALL' or F_WMQB_DEPTMENT2 LIKE '%{deptname}%'");
+
+                    string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_5RN"].ToString()));
+
+                    e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
+                    return;
+                }
             }
         }
 
