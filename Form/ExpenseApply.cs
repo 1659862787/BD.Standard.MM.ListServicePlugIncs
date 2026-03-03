@@ -60,7 +60,7 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     {
                         string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_5RN"].ToString()));
 
-                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
+                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" F_WMQB_GROUP_OZX IN ( {group})");
                         return;
                     }
                 }

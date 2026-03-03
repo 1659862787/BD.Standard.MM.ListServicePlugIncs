@@ -43,10 +43,10 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     }
                 }
             }
-            if (e.FieldKey.EqualsIgnoreCase("FTOCONTACTUNIT") && e.FormId.Equals("FIN_OTHERS"))
+            if (e.FieldKey.EqualsIgnoreCase("FCONTACTUNIT") && e.FormId.Equals("FIN_OTHERS"))
             {
 
-                DynamicObject dept = (DynamicObject)this.View.Model.GetValue("FDeptID");
+                DynamicObject dept = (DynamicObject)this.View.Model.GetValue("FRequestDeptID");
                 if (dept != null)
                 {
                     string deptname = dept["Name"].ToString();
@@ -58,7 +58,7 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     {
                         string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_5RN"].ToString()));
 
-                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
+                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" F_WMQB_GROUP_OZX IN ( {group})");
                         return;
                     }
                 }
