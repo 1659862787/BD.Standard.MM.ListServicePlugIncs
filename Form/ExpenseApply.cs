@@ -35,10 +35,14 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     //明迈而开配置表
                     DynamicObjectCollection dys = DBUtils.ExecuteDynamicObject(this.Context, $"select F_WMQB_GROUP_XHK from   WMQB_t_GroupConfig  where F_WMQB_DEPTMENT='ALL' or F_WMQB_DEPTMENT LIKE '%{deptname}%'");
 
-                    string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_XHK"].ToString()));
+                    if (dys.Count > 0)
+                    {
+                        string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_XHK"].ToString()));
 
-                    e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
-                    return;
+                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
+                        return;
+                    }
+                    
                 }
             }
             if (e.FieldKey.EqualsIgnoreCase("FTOCONTACTUNIT") && e.FormId.Equals("FIN_OTHERS"))
@@ -52,10 +56,13 @@ namespace BD.Standard.MM.ListServicePlugIncs2
                     //明迈而开配置表
                     DynamicObjectCollection dys = DBUtils.ExecuteDynamicObject(this.Context, $"select F_WMQB_GROUP_5RN from   WMQB_t_GroupConfig1  where F_WMQB_DEPTMENT2='ALL' or F_WMQB_DEPTMENT2 LIKE '%{deptname}%'");
 
-                    string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_5RN"].ToString()));
+                    if (dys.Count > 0)
+                    {
+                        string group = string.Join(",", dys.Select(x => x["F_WMQB_GROUP_5RN"].ToString()));
 
-                    e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
-                    return;
+                        e.ListFilterParameter.Filter = e.ListFilterParameter.Filter.JoinFilterString($" FPRIMARYGROUP IN ( {group})");
+                        return;
+                    }
                 }
             }
         }
